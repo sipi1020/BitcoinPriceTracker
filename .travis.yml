@@ -13,25 +13,8 @@ components:
     - extra-android-m2repository
     - addon-google_apis-google-19
     - sys-img-armeabi-v7a-android-21
-env:
-  global:
-    # Add this
-    - MALLOC_ARENA_MAX=2
-
-sudo: required
-
 before_install:
-  - yes | sdkmanager "platforms;android-27"
-
-before_script:
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a -s "768x1280"
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - adb wait-for-device
-  - adb shell input keyevent 82 &
-
-script: ./gradlew :BitcoinPriceTracker:build :BitcoinPriceTracker:connectedDebugAndroidTest
-
+    - yes | sdkmanager "platforms;android-27"
 deploy:
   provider: releases
   apikey: $GITHUB_KEY
@@ -45,3 +28,13 @@ notifications:
      - sipossipi1020@gmail.com
   on_success: always
   on_failure: always
+env:
+  global:
+    - MALLOC_ARENA_MAX=2
+  sudo: false
+  before_script:
+    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a -s "768x1280"
+    - emulator -avd test -no-skin -no-audio -no-window &
+    - adb wait-for-device
+    - adb shell input keyevent 82 &
+#script: ./gradlew :BitcoinPriceTracker:build :BitcoinPriceTracker:connectedDebugAndroidTest
