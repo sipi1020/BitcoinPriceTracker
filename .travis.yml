@@ -24,12 +24,12 @@ before_install:
     - yes | sdkmanager "platforms;android-27"
 
 before_script:
-    - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a -s "768x1280"
+    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a -s "768x1280"
     - emulator -avd test -no-skin -no-audio -no-window &
     - adb wait-for-device
     - adb shell input keyevent 82 &
 
-script: ./gradlew :app:build
+#script: ./gradlew :app:build
 
 deploy:
   provider: releases
