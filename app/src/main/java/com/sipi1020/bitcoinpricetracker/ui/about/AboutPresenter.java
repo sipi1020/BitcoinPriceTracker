@@ -1,6 +1,6 @@
-package com.sipi1020.bitcoinpricetracker.presenter;
+package com.sipi1020.bitcoinpricetracker.ui.about;
 
-import com.sipi1020.bitcoinpricetracker.view.screen.AboutScreen;
+import com.sipi1020.bitcoinpricetracker.ui.Presenter;
 
 /**
  * Created by Viki on 2018-04-05.

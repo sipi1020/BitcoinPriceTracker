@@ -1,10 +1,10 @@
-package com.sipi1020.bitcoinpricetracker.view;
+package com.sipi1020.bitcoinpricetracker.ui;
 
 import android.content.Context;
 
-import com.sipi1020.bitcoinpricetracker.presenter.AboutPresenter;
-import com.sipi1020.bitcoinpricetracker.presenter.FavoritesPresenter;
-import com.sipi1020.bitcoinpricetracker.presenter.MainPresenter;
+import com.sipi1020.bitcoinpricetracker.ui.about.AboutPresenter;
+import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoritesPresenter;
+import com.sipi1020.bitcoinpricetracker.ui.main.MainPresenter;
 
 import javax.inject.Singleton;
 

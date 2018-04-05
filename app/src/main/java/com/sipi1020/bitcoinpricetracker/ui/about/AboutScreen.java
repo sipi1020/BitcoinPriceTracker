@@ -1,4 +1,4 @@
-package com.sipi1020.bitcoinpricetracker.view.screen;
+package com.sipi1020.bitcoinpricetracker.ui.about;
 
 /**
  * Created by Viki on 2018-04-05.

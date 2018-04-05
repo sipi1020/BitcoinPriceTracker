@@ -2,7 +2,7 @@ package com.sipi1020.bitcoinpricetracker;
 
 import android.app.Application;
 
-import com.sipi1020.bitcoinpricetracker.view.UIModule;
+import com.sipi1020.bitcoinpricetracker.ui.UIModule;
 
 /**
  * Created by Viki on 2018-04-05.

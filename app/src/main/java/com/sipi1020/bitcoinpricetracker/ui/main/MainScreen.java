@@ -1,4 +1,4 @@
-package com.sipi1020.bitcoinpricetracker.view.screen;
+package com.sipi1020.bitcoinpricetracker.ui.main;
 
 import com.sipi1020.bitcoinpricetracker.model.PriceRecord;
 

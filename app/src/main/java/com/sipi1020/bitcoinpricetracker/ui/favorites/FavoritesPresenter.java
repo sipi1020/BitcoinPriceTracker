@@ -1,7 +1,7 @@
-package com.sipi1020.bitcoinpricetracker.presenter;
+package com.sipi1020.bitcoinpricetracker.ui.favorites;
 
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
-import com.sipi1020.bitcoinpricetracker.view.screen.FavoritesScreen;
+import com.sipi1020.bitcoinpricetracker.ui.Presenter;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package com.sipi1020.bitcoinpricetracker.presenter;
+package com.sipi1020.bitcoinpricetracker.ui.main;
 
 import com.sipi1020.bitcoinpricetracker.model.PriceRecord;
-import com.sipi1020.bitcoinpricetracker.view.screen.MainScreen;
+import com.sipi1020.bitcoinpricetracker.ui.Presenter;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Viki on 2018-04-05.
  */
 
-public class MainPresenter extends Presenter<MainScreen>{
+public class MainPresenter extends Presenter<MainScreen> {
 
     @Override
     public void attachScreen(MainScreen screen) {

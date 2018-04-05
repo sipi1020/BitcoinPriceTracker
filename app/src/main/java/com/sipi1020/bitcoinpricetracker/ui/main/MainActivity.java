@@ -1,10 +1,7 @@
-package com.sipi1020.bitcoinpricetracker.view;
+package com.sipi1020.bitcoinpricetracker.ui.main;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sipi1020.bitcoinpricetracker.R;
+import com.sipi1020.bitcoinpricetracker.ui.about.AboutFragment;
+import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoritesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
