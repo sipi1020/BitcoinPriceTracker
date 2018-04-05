@@ -18,7 +18,7 @@ env:
   global:
     - MALLOC_ARENA_MAX=2
 
-sudo: required
+sudo: false
 
 before_install:
     - yes | sdkmanager "platforms;android-27"
