@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
+import com.sipi1020.bitcoinpricetracker.repository.SugarOrmRepository;
 
 import java.util.List;
 

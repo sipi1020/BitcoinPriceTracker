@@ -9,8 +9,13 @@ import dagger.Provides;
 
 @Module
 public class InteractorModule {
+
     @Provides
     public PricesInteractor providePriesInteractor(){
         return new PricesInteractor();
+    }
+
+    @Provides FavoritesInteractor provideFavoritesInteractor (){
+        return new FavoritesInteractor();
     }
 }
