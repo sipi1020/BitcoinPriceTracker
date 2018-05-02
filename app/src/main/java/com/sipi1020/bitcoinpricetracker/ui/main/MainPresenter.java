@@ -2,15 +2,19 @@ package com.sipi1020.bitcoinpricetracker.ui.main;
 
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.di.Network;
+import com.sipi1020.bitcoinpricetracker.iteractor.FavoritesInteractor;
 import com.sipi1020.bitcoinpricetracker.iteractor.PricesInteractor;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.GetPricesEvent;
 import com.sipi1020.bitcoinpricetracker.model.PriceRecord;
+import com.sipi1020.bitcoinpricetracker.model.PricesResult;
+import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
 import com.sipi1020.bitcoinpricetracker.ui.Presenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -30,6 +34,13 @@ public class MainPresenter extends Presenter<MainScreen> {
     @Inject
     PricesInteractor pricesInteractor;
 
+    @Inject
+    FavoritesInteractor favoritesInteractor;
+
+    TimeRangeData currentData;
+    Date startDate;
+    Date endDate;
+
     @Override
     public void attachScreen(MainScreen screen) {
         super.attachScreen(screen);
@@ -44,6 +55,8 @@ public class MainPresenter extends Presenter<MainScreen> {
     }
 
     public void refreshPricesList(final Date start, final Date ends){
+        startDate= start;
+        endDate = ends;
         networkExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -61,6 +74,15 @@ public class MainPresenter extends Presenter<MainScreen> {
         screen.setDateListeners();
     }
 
+    public void addToFavorite(){
+        networkExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                favoritesInteractor.saveFavorite(currentData);
+            }
+        });
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetPricesEvent event) {
         if (event.getThrowable() != null) {
@@ -70,7 +92,13 @@ public class MainPresenter extends Presenter<MainScreen> {
             }
         } else {
             if (screen != null) {
-                screen.reloadList(event.getPrices());
+                PricesResult result = event.getPrices();
+                if (result != null) {
+                    screen.reloadList(event.getPrices());
+                    String start = new SimpleDateFormat("yyyy-MM-dd").format(startDate);
+                    String end = new SimpleDateFormat("yyyy-MM-dd").format(endDate);
+                    currentData = new TimeRangeData(new Long(0), start, end, result.getPriceRecordList());
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.sipi1020.bitcoinpricetracker.iteractor;
 
+import android.os.StrictMode;
+
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.DeleteFavoriteEvent;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.GetFavoritesEvent;
@@ -51,6 +53,9 @@ public class FavoritesInteractor {
     }
 
     public void saveFavorite(TimeRangeData data){
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+
         SaveFavoriteEvent event = new SaveFavoriteEvent();
         try {
             Call<Void> call = favoritesApi.addFavorite(data);

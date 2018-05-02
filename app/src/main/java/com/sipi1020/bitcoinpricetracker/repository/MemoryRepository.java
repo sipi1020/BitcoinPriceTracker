@@ -24,8 +24,8 @@ public class MemoryRepository implements Repository {
         TimeRangeData data2 = new TimeRangeData(new Long(2),"2018-03-17",
                 "2018-03-26",null);
         data = new ArrayList<>();
-        data.add(data1);
-        data.add(data2);
+//        data.add(data1);
+//        data.add(data2);
     }
 
     @Override
