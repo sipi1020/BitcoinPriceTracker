@@ -1,6 +1,7 @@
 package com.sipi1020.bitcoinpricetracker.ui.main;
 
 import com.sipi1020.bitcoinpricetracker.model.PriceRecord;
+import com.sipi1020.bitcoinpricetracker.model.PricesResult;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 
 public interface MainScreen {
 
-    void reloadList(List<PriceRecord> records);
+    void reloadList(PricesResult records);
     void setDefaultDateValues(Date startDate, Date endDate);
+    void setDateListeners();
 
 }
