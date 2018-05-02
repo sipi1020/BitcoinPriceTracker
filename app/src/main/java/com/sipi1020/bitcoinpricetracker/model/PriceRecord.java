@@ -10,11 +10,21 @@ import com.orm.dsl.Table;
 @Table
 public class PriceRecord {
 
+    @Expose
     Long id;
     @Expose
     String date;
     @Expose
     Double price;
+
+    public PriceRecord() {
+    }
+
+    public PriceRecord(Long id, String date, Double price) {
+        this.id = id;
+        this.date = date;
+        this.price = price;
+    }
 
     public Long getId() {
         return id;

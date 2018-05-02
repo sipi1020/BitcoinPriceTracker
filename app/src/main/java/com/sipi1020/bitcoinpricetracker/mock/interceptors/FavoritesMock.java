@@ -26,22 +26,22 @@ public class FavoritesMock {
         Headers headers = request.headers();
 
 
-        if (uri.getPath().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("Get")) {
+        if (uri.toString().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("GET")) {
             MemoryRepository memoryRepository = new MemoryRepository();
             memoryRepository.open(null);
             responseString = new GsonBuilder().create().toJson(memoryRepository.getFavorites());
             responseCode = 200;
         }
-        else if (uri.getPath().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("POST")) {
+        else if (uri.toString().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("POST")) {
             MemoryRepository memoryRepository = new MemoryRepository();
             memoryRepository.open(null);
-            String body = request.body().toString();
+            String body = MockHelper.bodyToString(request);
             TimeRangeData data = new GsonBuilder().create().fromJson(body, TimeRangeData.class);
             memoryRepository.saveFavorite(data);
             responseString = "";
             responseCode = 200;
         }
-        else if (uri.getPath().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites/") && request.method().equals("DELETE")) {
+        else if (uri.toString().startsWith(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites/") && request.method().equals("DELETE")) {
             MemoryRepository memoryRepository = new MemoryRepository();
             memoryRepository.open(null);
             String id = uri.getPathSegments().get(uri.getPathSegments().size()-1);

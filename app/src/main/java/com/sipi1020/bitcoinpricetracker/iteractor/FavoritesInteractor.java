@@ -10,7 +10,6 @@ import com.sipi1020.bitcoinpricetracker.iteractor.events.SaveFavoriteEvent;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
 import com.sipi1020.bitcoinpricetracker.networking.FavoritesApi;
 import com.sipi1020.bitcoinpricetracker.repository.Repository;
-import com.sipi1020.bitcoinpricetracker.repository.SugarOrmRepository;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,6 +20,8 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -99,5 +100,7 @@ public class FavoritesInteractor {
             e.printStackTrace();
             EventBus.getDefault().post(event);
         }
+        repository.open(context);
+        repository.removeFavorite(id);
     }
 }

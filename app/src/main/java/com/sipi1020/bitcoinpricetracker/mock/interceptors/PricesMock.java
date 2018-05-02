@@ -28,7 +28,7 @@ public class PricesMock {
         Headers headers = request.headers();
 
 
-        if (uri.getPath().equals(NetworkConfig.BITCOIN_ENDPOINT_ADDRESS) && request.method().equals("Get")) {
+        if (uri.toString().startsWith(NetworkConfig.BITCOIN_ENDPOINT_ADDRESS) && request.method().equals("GET")) {
             String start = uri.getQueryParameter("start");
             String end = uri.getQueryParameter("end");
             if (start == null || end == null){

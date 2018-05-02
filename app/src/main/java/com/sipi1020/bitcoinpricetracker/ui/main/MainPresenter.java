@@ -37,7 +37,8 @@ public class MainPresenter extends Presenter<MainScreen> {
     @Inject
     FavoritesInteractor favoritesInteractor;
 
-    TimeRangeData currentData;
+    public TimeRangeData currentData;
+    public PricesResult pricesResult;
     Date startDate;
     Date endDate;
 
@@ -97,12 +98,12 @@ public class MainPresenter extends Presenter<MainScreen> {
             }
         } else {
             if (screen != null) {
-                PricesResult result = event.getPrices();
-                if (result != null) {
+                pricesResult = event.getPrices();
+                if (pricesResult != null) {
                     screen.reloadList(event.getPrices());
                     String start = new SimpleDateFormat("yyyy-MM-dd").format(startDate);
                     String end = new SimpleDateFormat("yyyy-MM-dd").format(endDate);
-                    currentData = new TimeRangeData(new Long(0), start, end, result.getPriceRecordList());
+                    currentData = new TimeRangeData(new Long(0), start, end, pricesResult.getPriceRecordList());
                 }
             }
         }

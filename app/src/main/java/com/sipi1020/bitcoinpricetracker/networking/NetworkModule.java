@@ -1,5 +1,8 @@
 package com.sipi1020.bitcoinpricetracker.networking;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -18,15 +21,18 @@ public class NetworkModule {
     @Provides
     @Singleton
     public Retrofit.Builder provideRetrofit() {
+        Gson gson = new GsonBuilder().serializeNulls().create();
         return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create());
+                .addConverterFactory(GsonConverterFactory.create(gson));
 
     }
 
     @Provides
     @Singleton
     public Retrofit provideRetrofitFromClient(OkHttpClient client) {
+        Gson gson = new GsonBuilder().serializeNulls().create();
         return new Retrofit.Builder().baseUrl(NetworkConfig.SERVER_ENDPOINT_ADDRESS).client(client)
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 
@@ -46,12 +52,16 @@ public class NetworkModule {
     @Provides
     @Singleton
     public PricesApi providePricesApi(Retrofit.Builder retrofitBuilder) {
-        return retrofitBuilder.baseUrl(NetworkConfig.BITCOIN_ENDPOINT_ADDRESS).build().create(PricesApi.class);
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        return retrofitBuilder.baseUrl(NetworkConfig.BITCOIN_ENDPOINT_ADDRESS)
+                .addConverterFactory(GsonConverterFactory.create(gson)).build().create(PricesApi.class);
     }
 
     @Provides
     @Singleton
     public FavoritesApi provideFavoritesApi(Retrofit.Builder retrofitBuilder) {
-        return retrofitBuilder.baseUrl(NetworkConfig.SERVER_ENDPOINT_ADDRESS).build().create(FavoritesApi.class);
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        return retrofitBuilder.baseUrl(NetworkConfig.SERVER_ENDPOINT_ADDRESS)
+                .addConverterFactory(GsonConverterFactory.create(gson)).build().create(FavoritesApi.class);
     }
 }

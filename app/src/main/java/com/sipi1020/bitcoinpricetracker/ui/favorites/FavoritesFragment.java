@@ -2,6 +2,9 @@ package com.sipi1020.bitcoinpricetracker.ui.favorites;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +16,6 @@ import android.widget.Toast;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
-import com.sipi1020.bitcoinpricetracker.repository.SugarOrmRepository;
-import com.sipi1020.bitcoinpricetracker.ui.main.PricesAdapter;
-
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,6 +37,7 @@ public class FavoritesFragment extends Fragment implements FavoritesScreen {
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private  Handler handler;
 
     public FavoritesFragment() {
         BitcoinPriceTrackerApplication.injector.inject(this);
@@ -57,6 +57,13 @@ public class FavoritesFragment extends Fragment implements FavoritesScreen {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message message) {
+                Toast.makeText(getActivity(),"Data removed from favorites",Toast.LENGTH_SHORT).show();
+            }
+        };
 
         return view;
     }
@@ -81,6 +88,7 @@ public class FavoritesFragment extends Fragment implements FavoritesScreen {
 
     @Override
     public void showFavoriteRemoved() {
-        Toast.makeText(getContext(),"Data removed from favorites",Toast.LENGTH_SHORT);
+        Message message = handler.obtainMessage(0);
+        message.sendToTarget();
     }
 }

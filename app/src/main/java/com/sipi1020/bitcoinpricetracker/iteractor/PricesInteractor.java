@@ -36,7 +36,8 @@ public class PricesInteractor {
         String end = new SimpleDateFormat("yyyy-MM-dd").format(endDate);
 
         GetPricesEvent event = new GetPricesEvent();
-        try {Call<PricesResult> call = pricesApi.getPrices(start,end);
+        try {
+            Call<PricesResult> call = pricesApi.getPrices(start,end);
             Response<PricesResult> response = call.execute();
             if (response.code() != 200) {
                 Logger.getLogger("pricesApi").log(Level.ALL,"Error during call");
