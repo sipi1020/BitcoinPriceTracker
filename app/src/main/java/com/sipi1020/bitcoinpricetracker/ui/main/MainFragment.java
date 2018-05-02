@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
@@ -84,8 +85,6 @@ public class MainFragment extends Fragment implements MainScreen {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-
 
         return view;
     }
@@ -188,6 +187,11 @@ public class MainFragment extends Fragment implements MainScreen {
             }
 
         };
+    }
+
+    @Override
+    public void showFavoriteAdded() {
+        Toast.makeText(getContext(),"Data added to favorites",Toast.LENGTH_SHORT);
     }
 
     @OnClick(R.id.refreshButton)

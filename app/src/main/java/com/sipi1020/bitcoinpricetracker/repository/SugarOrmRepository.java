@@ -41,4 +41,8 @@ public class SugarOrmRepository implements Repository {
         SugarRecord.deleteInTx(SugarRecord.findById(TimeRangeData.class,id));
     }
 
+    @Override
+    public void removeFavorite(TimeRangeData data) {
+        SugarRecord.deleteInTx(data);
+    }
 }

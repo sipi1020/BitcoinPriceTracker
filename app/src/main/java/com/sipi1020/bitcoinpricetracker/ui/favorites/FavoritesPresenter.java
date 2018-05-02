@@ -1,10 +1,13 @@
 package com.sipi1020.bitcoinpricetracker.ui.favorites;
 
+import android.content.Context;
+
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.di.Network;
 import com.sipi1020.bitcoinpricetracker.iteractor.FavoritesInteractor;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.GetFavoritesEvent;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
+import com.sipi1020.bitcoinpricetracker.repository.Repository;
 import com.sipi1020.bitcoinpricetracker.ui.Presenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,6 +32,12 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
     @Inject
     FavoritesInteractor favoritesInteractor;
 
+    @Inject
+    Repository repository;
+
+    @Inject
+    Context context;
+
 
     @Override
     public void attachScreen(FavoritesScreen screen) {
@@ -43,7 +52,7 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
         EventBus.getDefault().unregister(this);
     }
 
-    public void refrehTimeRangeList(){
+    public void refrehFavoriteList(){
         networkExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -52,16 +61,31 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
         });
     }
 
+    public void showFavoriteRemoved(){
+        screen.showFavoriteRemoved();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetFavoritesEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
             if (screen != null) {
-
+                repository.open(context);
+                List<TimeRangeData> data = repository.getFavorites();
+                screen.reloadData(data);
+                repository.close();
             }
         } else {
             if (screen != null) {
-                screen.reloadData(event.getData());
+                if (event.getData() == null){
+                    repository.open(context);
+                    List<TimeRangeData> data = repository.getFavorites();
+                    screen.reloadData(data);
+                    repository.close();
+                }
+                else {
+                    screen.reloadData(event.getData());
+                }
             }
         }
     }

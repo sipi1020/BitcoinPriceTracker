@@ -79,8 +79,13 @@ public class MainPresenter extends Presenter<MainScreen> {
             @Override
             public void run() {
                 favoritesInteractor.saveFavorite(currentData);
+                showFavoriteAdded();
             }
         });
+    }
+
+    public void showFavoriteAdded(){
+        screen.showFavoriteAdded();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
