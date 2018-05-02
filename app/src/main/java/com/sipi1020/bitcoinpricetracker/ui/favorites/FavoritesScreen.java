@@ -12,5 +12,4 @@ public interface FavoritesScreen{
 
     void reloadData(List<TimeRangeData> data);
     void showFavoriteRemoved();
-
 }

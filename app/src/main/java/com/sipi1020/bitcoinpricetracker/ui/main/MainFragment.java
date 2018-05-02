@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -56,6 +59,7 @@ public class MainFragment extends Fragment implements MainScreen {
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private  Handler handler;
 
     Date start;
     Date end;
@@ -85,6 +89,13 @@ public class MainFragment extends Fragment implements MainScreen {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message message) {
+                Toast.makeText(getActivity(),"Data added to favorites",Toast.LENGTH_SHORT).show();
+            }
+        };
 
         return view;
     }
@@ -191,7 +202,8 @@ public class MainFragment extends Fragment implements MainScreen {
 
     @Override
     public void showFavoriteAdded() {
-        Toast.makeText(getContext(),"Data added to favorites",Toast.LENGTH_SHORT);
+        Message message = handler.obtainMessage(0);
+        message.sendToTarget();
     }
 
     @OnClick(R.id.refreshButton)

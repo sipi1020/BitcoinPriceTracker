@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.sipi1020.bitcoinpricetracker.di.Network;
 import com.sipi1020.bitcoinpricetracker.ui.about.AboutPresenter;
+import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoriteDetailPresenter;
 import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoritesPresenter;
 import com.sipi1020.bitcoinpricetracker.ui.main.MainPresenter;
 
@@ -49,6 +50,12 @@ public class UIModule {
     @Singleton
     public AboutPresenter provideAboutPresenter(){
         return new AboutPresenter();
+    }
+
+    @Provides
+    @Singleton
+    public FavoriteDetailPresenter provideFavoriteDetailPresenter(){
+        return new FavoriteDetailPresenter();
     }
 
     @Provides

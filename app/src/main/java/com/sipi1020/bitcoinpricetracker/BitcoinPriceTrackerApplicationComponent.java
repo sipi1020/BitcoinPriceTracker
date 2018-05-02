@@ -7,6 +7,8 @@ import com.sipi1020.bitcoinpricetracker.networking.NetworkModule;
 import com.sipi1020.bitcoinpricetracker.repository.RepositoryModule;
 import com.sipi1020.bitcoinpricetracker.repository.SugarOrmRepository;
 import com.sipi1020.bitcoinpricetracker.ui.about.AboutFragment;
+import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoriteDetailFragment;
+import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoriteDetailPresenter;
 import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoritesAdapter;
 import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoritesFragment;
 import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoritesPresenter;
@@ -30,7 +32,9 @@ public interface BitcoinPriceTrackerApplicationComponent {
     void inject(MainFragment mainFragment);
     void inject(FavoritesFragment favoritesFragment);
     void inject(AboutFragment aboutFragment);
+    void inject(FavoriteDetailFragment favoriteDetailFragment);
     void inject(MainPresenter mainPresenter);
     void inject(FavoritesPresenter favoritesPresenter);
     void inject(FavoritesAdapter favoritesAdapter);
+    void inject(FavoriteDetailPresenter favoriteDetailPresenter);
 }
