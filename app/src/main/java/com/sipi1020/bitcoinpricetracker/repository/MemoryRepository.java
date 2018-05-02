@@ -37,6 +37,7 @@ public class MemoryRepository implements Repository {
 
     @Override
     public void saveFavorite(TimeRangeData data) {
+        data.setId((long) (this.data.size()+1));
         this.data.add(data);
     }
 
