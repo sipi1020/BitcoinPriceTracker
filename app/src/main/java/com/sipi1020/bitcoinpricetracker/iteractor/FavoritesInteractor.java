@@ -1,11 +1,16 @@
 package com.sipi1020.bitcoinpricetracker.iteractor;
 
+import android.content.Context;
+import android.os.StrictMode;
+
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.DeleteFavoriteEvent;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.GetFavoritesEvent;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.SaveFavoriteEvent;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
 import com.sipi1020.bitcoinpricetracker.networking.FavoritesApi;
+import com.sipi1020.bitcoinpricetracker.repository.Repository;
+import com.sipi1020.bitcoinpricetracker.repository.SugarOrmRepository;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,6 +32,12 @@ public class FavoritesInteractor {
 
     @Inject
     FavoritesApi favoritesApi;
+
+    @Inject
+    Repository repository;
+
+    @Inject
+    Context context;
 
     public FavoritesInteractor() {
         BitcoinPriceTrackerApplication.injector.inject(this);
@@ -66,6 +77,10 @@ public class FavoritesInteractor {
             e.printStackTrace();
             EventBus.getDefault().post(event);
         }
+        repository.open(context);
+        repository.saveFavorite(data);
+        repository.close();
+
     }
 
     public void removeFavorite(long id){

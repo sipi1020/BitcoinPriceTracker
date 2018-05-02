@@ -23,14 +23,16 @@ public class MemoryRepository implements Repository {
                 "2018-03-22",null);
         TimeRangeData data2 = new TimeRangeData(new Long(2),"2018-03-17",
                 "2018-03-26",null);
-        data = new ArrayList<>();
-        data.add(data1);
-        data.add(data2);
+        if (data == null) {
+            data = new ArrayList<>();
+        }
+//        data.add(data1);
+//        data.add(data2);
     }
 
     @Override
     public List<TimeRangeData> getFavorites() {
-        return null;
+        return data;
     }
 
     @Override
@@ -49,6 +51,11 @@ public class MemoryRepository implements Repository {
         if (item != null){
             data.remove(item);
         }
+    }
+
+    @Override
+    public void removeFavorite(TimeRangeData data) {
+        this.data.remove(data);
     }
 
     @Override

@@ -7,6 +7,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="About fragment" />
+        android:gravity="center"
+        android:text="Developed by: Viktória Sipos
+Data provider: www.coindesk.com"
+        android:textAlignment="center" />
 
 </LinearLayout>

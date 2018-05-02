@@ -11,5 +11,5 @@ import java.util.List;
 public interface FavoritesScreen{
 
     void reloadData(List<TimeRangeData> data);
-
+    void showFavoriteRemoved();
 }

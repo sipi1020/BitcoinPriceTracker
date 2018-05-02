@@ -8,10 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sipi1020.bitcoinpricetracker.R;
+import com.sipi1020.bitcoinpricetracker.model.PriceRecord;
 import com.sipi1020.bitcoinpricetracker.model.PricesResult;
+import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Viki on 2018-05-01.
@@ -19,7 +22,7 @@ import java.util.Collections;
 
 public class PricesAdapter extends RecyclerView.Adapter<PricesAdapter.ViewHolder>{
 
-    private PricesResult mDataset;
+    private List<PriceRecord> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -37,7 +40,10 @@ public class PricesAdapter extends RecyclerView.Adapter<PricesAdapter.ViewHolder
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public PricesAdapter(PricesResult myDataset) {
-        mDataset = myDataset;
+        mDataset = myDataset.getPriceRecordList();
+    }
+    public PricesAdapter(TimeRangeData myDataset) {
+        mDataset = myDataset.getPrices();
     }
 
     // Create new views (invoked by the layout manager)
@@ -57,23 +63,15 @@ public class PricesAdapter extends RecyclerView.Adapter<PricesAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        Object[] dateObjects = (mDataset.getPrices().keySet().toArray());
-        int size = dateObjects.length;
-        String [] dates = new String[size];
-        for (int i = 0; i < size; i++)
-            dates[i] = dateObjects[i].toString();
+        List<PriceRecord> records = mDataset;
 
 
-        Arrays.sort(dates);
-        Collections.reverse(Arrays.asList(dates));
 
-        Double price = mDataset.getPrices().get(dates[position]);
-
-        holder.tvDate.setText(dates[position]);
-        holder.tvPrice.setText("$"+ price);
-        if (position < dates.length-1) {
-            Double previous = (Double) mDataset.getPrices().get(dates[position+1]);
-            if (previous<price) {
+        holder.tvDate.setText(records.get(position).getDate());
+        holder.tvPrice.setText("$"+ records.get(position).getPrice());
+        if (position < records.size()-1) {
+            Double previous = records.get(position+1).getPrice();
+            if (previous < records.get(position).getPrice()){
                 holder.imArrow.setImageResource(R.drawable.up);
             }
             else {
@@ -89,6 +87,6 @@ public class PricesAdapter extends RecyclerView.Adapter<PricesAdapter.ViewHolder
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.getPrices().keySet().toArray().length;
+        return mDataset.size();
     }
 }

@@ -15,5 +15,6 @@ public interface MainScreen {
     void reloadList(PricesResult records);
     void setDefaultDateValues(Date startDate, Date endDate);
     void setDateListeners();
+    void showFavoriteAdded();
 
 }

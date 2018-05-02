@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:orientation="horizontal"
         android:weightSum="2">
         <TextView
@@ -57,6 +57,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/white"
         android:id="@+id/refreshButton"
+        android:visibility="gone"
         />
 
     <android.support.v7.widget.RecyclerView

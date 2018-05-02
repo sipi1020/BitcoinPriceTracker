@@ -22,4 +22,6 @@ public interface Repository {
     void saveFavorite(TimeRangeData data);
 
     void removeFavorite(long id);
+
+    void removeFavorite(TimeRangeData data);
 }

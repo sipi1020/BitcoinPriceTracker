@@ -42,9 +42,6 @@ public class MockInterceptor implements Interceptor {
             return PricesMock.process(request);
         }
 
-
-
-
         return makeResponse(request, headers, 404, "Unknown");
 
     }
