@@ -57,6 +57,10 @@ public class MainPresenter extends Presenter<MainScreen> {
         screen.setDefaultDateValues(start,end);
     }
 
+    public void initDatePickers(){
+        screen.setDateListeners();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetPricesEvent event) {
         if (event.getThrowable() != null) {

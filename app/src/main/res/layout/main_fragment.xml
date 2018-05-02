@@ -9,16 +9,43 @@
         android:layout_height="30dp"
         android:orientation="horizontal"
         android:weightSum="2">
-        <DatePicker
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Start date"
+            android:textColor= "@color/colorAccent"
+            android:gravity="center"
+            android:layout_height="match_parent"></TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="End date"
+            android:textColor= "@color/colorAccent"
+            android:gravity="center"
+            android:layout_height="match_parent"></TextView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/startPicker"
-            android:layout_height="match_parent"></DatePicker>
-        <DatePicker
+            android:backgroundTint="@color/colorAccent"
+            android:textColor= "@color/white"
+            android:layout_height="match_parent"></Button>
+        <Button
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/endPicker"
-            android:layout_height="match_parent"></DatePicker>
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/white"
+            android:layout_height="match_parent"></Button>
 
 
     </LinearLayout>
@@ -26,13 +53,19 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="refresh"
+        android:text="refresh prices"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
         android:id="@+id/refreshButton"
         />
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Main fragment" />
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view"
+        android:scrollbars="vertical"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         MainFragment mainFragment = new MainFragment();
         fragmentManager.beginTransaction().replace(R.id.fragment_container,mainFragment).commit();
     }
@@ -79,15 +79,15 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_prices) {
             MainFragment fragment = new MainFragment();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
 
         } else if (id == R.id.nav_favorites) {
             FavoritesFragment fragment = new FavoritesFragment();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
 
         } else if (id == R.id.nav_about) {
             AboutFragment fragment = new AboutFragment();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
 
         }
 
