@@ -20,7 +20,8 @@ import okio.Okio;
 public class MockHelper {
     public static Response makeResponse(Request request, Headers headers, int code, final String content) {
 
-        return new Response.Builder().protocol(Protocol.HTTP_2).code(code).request(request).headers(headers).body(new ResponseBody() {
+        return new Response.Builder().protocol(Protocol.HTTP_2).code(code).request(request).headers(headers)
+                .body(new ResponseBody() {
             @Override
             public MediaType contentType() {
                 return MediaType.parse("application/json");
@@ -35,7 +36,7 @@ public class MockHelper {
             public BufferedSource source() {
                 return Okio.buffer(Okio.source(new ByteArrayInputStream(content.getBytes())));
             }
-        }).build();
+        }).message("").build();
     }
 
     public static String bodyToString(final Request request) {

@@ -6,6 +6,8 @@ package com.sipi1020.bitcoinpricetracker.mock.interceptors;
 
 import android.net.Uri;
 
+import com.google.gson.GsonBuilder;
+import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
 import com.sipi1020.bitcoinpricetracker.networking.NetworkConfig;
 import com.sipi1020.bitcoinpricetracker.repository.MemoryRepository;
 
@@ -24,32 +26,32 @@ public class FavoritesMock {
         Headers headers = request.headers();
 
 
-        if (uri.getPath().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("Get")) {
+        if (uri.toString().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("GET")) {
             MemoryRepository memoryRepository = new MemoryRepository();
             memoryRepository.open(null);
-            //responseString = GsonHelper.getGson().toJson(memoryRepository.getFavourites());
-
+            responseString = new GsonBuilder().create().toJson(memoryRepository.getFavorites());
+            responseCode = 200;
+        }
+        else if (uri.toString().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("POST")) {
+            MemoryRepository memoryRepository = new MemoryRepository();
+            memoryRepository.open(null);
+            String body = MockHelper.bodyToString(request);
+            TimeRangeData data = new GsonBuilder().create().fromJson(body, TimeRangeData.class);
+            memoryRepository.saveFavorite(data);
             responseString = "";
             responseCode = 200;
         }
-        else if (uri.getPath().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites") && request.method().equals("POST")) {
+        else if (uri.toString().startsWith(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites/") && request.method().equals("DELETE")) {
             MemoryRepository memoryRepository = new MemoryRepository();
             memoryRepository.open(null);
-            //responseString = GsonHelper.getGson().toJson(memoryRepository.getFavourites());
-
-            responseString = "";
-            responseCode = 200;
-        }
-        else if (uri.getPath().equals(NetworkConfig.SERVER_ENDPOINT_ADDRESS + "favorites/") && request.method().equals("DELETE")) {
-            MemoryRepository memoryRepository = new MemoryRepository();
-            memoryRepository.open(null);
-            //responseString = GsonHelper.getGson().toJson(memoryRepository.getFavourites());
+            String id = uri.getPathSegments().get(uri.getPathSegments().size()-1);
+            memoryRepository.removeFavorite(Long.parseLong(id));
 
             responseString = "";
             responseCode = 200;
         }
         else {
-            responseString = "ERROR";
+            responseString = "";
             responseCode = 503;
         }
 

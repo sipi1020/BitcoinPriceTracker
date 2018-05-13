@@ -34,11 +34,11 @@ public class MockInterceptor implements Interceptor {
         Headers headers = request.headers();
 
 
-        if (uri.getPath().startsWith(NetworkConfig.SERVER_ENDPOINT_ADDRESS)) {
+        if (uri.toString().startsWith(NetworkConfig.SERVER_ENDPOINT_ADDRESS)) {
             return FavoritesMock.process(request);
         }
 
-        if (uri.getPath().startsWith(NetworkConfig.BITCOIN_ENDPOINT_ADDRESS + "User")) {
+        if (uri.toString().startsWith(NetworkConfig.BITCOIN_ENDPOINT_ADDRESS)) {
             return PricesMock.process(request);
         }
 

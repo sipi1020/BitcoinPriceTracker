@@ -5,6 +5,7 @@ import android.content.Context;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.di.Network;
 import com.sipi1020.bitcoinpricetracker.iteractor.FavoritesInteractor;
+import com.sipi1020.bitcoinpricetracker.iteractor.events.DeleteFavoriteEvent;
 import com.sipi1020.bitcoinpricetracker.iteractor.events.GetFavoritesEvent;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
 import com.sipi1020.bitcoinpricetracker.repository.Repository;
@@ -38,6 +39,7 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
     @Inject
     Context context;
 
+    public List<TimeRangeData> data;
 
     @Override
     public void attachScreen(FavoritesScreen screen) {
@@ -61,8 +63,13 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
         });
     }
 
-    public void showFavoriteRemoved(){
-        screen.showFavoriteRemoved();
+    public void removeFavorite(final Long id){
+        networkExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                favoritesInteractor.removeFavorite(id);
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -71,7 +78,7 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
             event.getThrowable().printStackTrace();
             if (screen != null) {
                 repository.open(context);
-                List<TimeRangeData> data = repository.getFavorites();
+                data = repository.getFavorites();
                 screen.reloadData(data);
                 repository.close();
             }
@@ -79,13 +86,29 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
             if (screen != null) {
                 if (event.getData() == null){
                     repository.open(context);
-                    List<TimeRangeData> data = repository.getFavorites();
+                    data = repository.getFavorites();
                     screen.reloadData(data);
                     repository.close();
                 }
                 else {
-                    screen.reloadData(event.getData());
+                    data = event.getData();
+                    screen.reloadData(data);
                 }
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(final DeleteFavoriteEvent event) {
+        if (event.getThrowable() != null) {
+            event.getThrowable().printStackTrace();
+            if (screen != null) {
+
+            }
+        } else {
+            if (screen != null) {
+                screen.showFavoriteRemoved();
+                refrehFavoriteList();
             }
         }
     }

@@ -35,6 +35,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     @Inject
     Repository repository;
 
+    @Inject
+    FavoritesPresenter presenter;
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView tvDate;
@@ -78,8 +81,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                repository.removeFavorite(mDataset.get(pos));
-                notifyDataSetChanged();
+                presenter.removeFavorite(mDataset.get(pos).getId());
+//                repository.removeFavorite(mDataset.get(pos));
+//                notifyDataSetChanged();
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -11,7 +11,8 @@ import java.util.List;
 @Table
 public class TimeRangeData {
 
-    Long id = null;
+    @Expose
+    Long id;
     @Expose
     String startDate;
     @Expose

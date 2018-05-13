@@ -5,7 +5,6 @@ import com.sipi1020.bitcoinpricetracker.iteractor.InteractorModule;
 import com.sipi1020.bitcoinpricetracker.iteractor.PricesInteractor;
 import com.sipi1020.bitcoinpricetracker.networking.NetworkModule;
 import com.sipi1020.bitcoinpricetracker.repository.RepositoryModule;
-import com.sipi1020.bitcoinpricetracker.repository.SugarOrmRepository;
 import com.sipi1020.bitcoinpricetracker.ui.about.AboutFragment;
 import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoriteDetailFragment;
 import com.sipi1020.bitcoinpricetracker.ui.favorites.FavoriteDetailPresenter;
