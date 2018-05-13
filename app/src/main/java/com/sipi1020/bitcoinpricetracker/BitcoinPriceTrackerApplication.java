@@ -2,10 +2,12 @@ package com.sipi1020.bitcoinpricetracker;
 
 
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.orm.SugarApp;
 import com.sipi1020.bitcoinpricetracker.ui.UIModule;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Viki on 2018-04-05.
@@ -20,6 +22,7 @@ public class BitcoinPriceTrackerApplication extends SugarApp{
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         injector = DaggerBitcoinPriceTrackerApplicationComponent.builder().uIModule(new UIModule(this)).build();
         sAnalytics = GoogleAnalytics.getInstance(this);
     }
