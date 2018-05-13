@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
 import com.sipi1020.bitcoinpricetracker.model.PricesResult;
@@ -68,6 +70,8 @@ public class MainFragment extends Fragment implements MainScreen {
     DatePickerDialog.OnDateSetListener startDate;
     DatePickerDialog.OnDateSetListener endDate;
 
+    Tracker mTracker;
+
     public MainFragment() {
         BitcoinPriceTrackerApplication.injector.inject(this);
     }
@@ -96,6 +100,10 @@ public class MainFragment extends Fragment implements MainScreen {
                 Toast.makeText(getActivity(),"Data added to favorites",Toast.LENGTH_SHORT).show();
             }
         };
+
+        mTracker = ((BitcoinPriceTrackerApplication) getActivity().getApplication()).getDefaultTracker();
+        mTracker.setScreenName("Main Screen");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         return view;
     }
@@ -155,6 +163,11 @@ public class MainFragment extends Fragment implements MainScreen {
         // specify an adapter (see also next example)
         mAdapter = new PricesAdapter(records);
         mRecyclerView.setAdapter(mAdapter);
+
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Date range: " + startPicker.getText() + " - " + endPicker.getText())
+                .build());
     }
 
     @Override
@@ -204,6 +217,10 @@ public class MainFragment extends Fragment implements MainScreen {
     public void showFavoriteAdded() {
         Message message = handler.obtainMessage(0);
         message.sendToTarget();
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Added to favorite: " + startPicker.getText() + " - " + endPicker.getText())
+                .build());
     }
 
     @OnClick(R.id.refreshButton)

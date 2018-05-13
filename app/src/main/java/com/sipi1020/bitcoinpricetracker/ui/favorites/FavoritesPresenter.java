@@ -1,6 +1,7 @@
 package com.sipi1020.bitcoinpricetracker.ui.favorites;
 
 import android.content.Context;
+import android.util.EventLog;
 
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.di.Network;
@@ -45,7 +46,9 @@ public class FavoritesPresenter extends Presenter<FavoritesScreen> {
     public void attachScreen(FavoritesScreen screen) {
         super.attachScreen(screen);
         BitcoinPriceTrackerApplication.injector.inject(this);
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override

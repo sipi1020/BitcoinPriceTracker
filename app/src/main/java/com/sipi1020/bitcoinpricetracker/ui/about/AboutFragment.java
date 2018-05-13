@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
 
@@ -49,6 +51,11 @@ public class AboutFragment extends Fragment implements AboutScreen {
                 presenter.showDeveloperWebsite("https://github.com/sipi1020");
             }
         });
+
+        Tracker mTracker = ((BitcoinPriceTrackerApplication) getActivity().getApplication()).getDefaultTracker();
+        mTracker.setScreenName("About Screen");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         // Inflate the layout for this fragment
         return view;
     }

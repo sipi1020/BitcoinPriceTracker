@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
@@ -55,6 +57,10 @@ public class FavoriteDetailFragment extends Fragment implements FavoriteDetailSc
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         presenter.loadData(data);
+
+        Tracker mTracker = ((BitcoinPriceTrackerApplication) getActivity().getApplication()).getDefaultTracker();
+        mTracker.setScreenName("Favorite Detail Screen");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         return view;
     }

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
 
@@ -82,6 +84,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             @Override
             public void onClick(View v) {
                 presenter.removeFavorite(mDataset.get(pos).getId());
+
+                Tracker mTracker = ((BitcoinPriceTrackerApplication)((MainActivity) mContext).getApplication()).getDefaultTracker();
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Removed from favorite: " + mDataset.get(pos).getStartDate() + " - " + mDataset.get(pos).getEndDate())
+                        .build());
+
 //                repository.removeFavorite(mDataset.get(pos));
 //                notifyDataSetChanged();
             }

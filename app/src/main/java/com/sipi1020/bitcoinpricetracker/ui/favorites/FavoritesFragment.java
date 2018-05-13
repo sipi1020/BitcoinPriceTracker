@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sipi1020.bitcoinpricetracker.BitcoinPriceTrackerApplication;
 import com.sipi1020.bitcoinpricetracker.R;
 import com.sipi1020.bitcoinpricetracker.model.TimeRangeData;
@@ -39,6 +41,8 @@ public class FavoritesFragment extends Fragment implements FavoritesScreen {
     private RecyclerView.LayoutManager mLayoutManager;
     private  Handler handler;
 
+    Tracker mTracker;
+
     public FavoritesFragment() {
         BitcoinPriceTrackerApplication.injector.inject(this);
     }
@@ -64,6 +68,10 @@ public class FavoritesFragment extends Fragment implements FavoritesScreen {
                 Toast.makeText(getActivity(),"Data removed from favorites",Toast.LENGTH_SHORT).show();
             }
         };
+
+        mTracker = ((BitcoinPriceTrackerApplication) getActivity().getApplication()).getDefaultTracker();
+        mTracker.setScreenName("Favorites Screen");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         return view;
     }
